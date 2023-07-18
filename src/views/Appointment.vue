@@ -157,20 +157,21 @@ watchEffect(async () => {
 
 const handleSubmit = async () => {
   try {
-    if (doctorName.value.id) {
+    if (doctorName.value) {
       loading.value = true;
       const { error } = await supabase.from("patients").insert({
-        doctor_id: doctorName.value.id,
+        doctor_name: doctorName.value.username,
+        doctor_email: doctorName.value.email,
         name: name.value,
-        email: store.user.email,
         phone: phone.value,
         gender: gender.value,
         date: date.value,
         treatement: treatement.value,
+        patient_id: store.user.id
       });
       if (error) throw error;
       toast.success("Book Successfully", 3000);
-      router.push({ name: "Home" });
+      router.push({ name: "History" });
     }
   } catch (error) {
     toast.error(error);

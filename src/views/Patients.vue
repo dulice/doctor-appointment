@@ -9,7 +9,7 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Email</th>
+          <th>Gender</th>
           <th>Phone</th>
           <th>Treatement</th>
           <th>Date</th>
@@ -18,7 +18,7 @@
       <tbody v-if="patients && patients.length > 0">
         <tr v-for="patient in patients" :key="patient.id">
           <td>{{ patient.name }}</td>
-          <td>{{ patient.email }}</td>
+          <td>{{ patient.gender }}</td>
           <td>{{ patient.phone }}</td>
           <td>{{ patient.treatement }}</td>
           <td class="text-warning bold">
@@ -54,7 +54,7 @@ watchEffect(async () => {
     const { data, error } = await supabase
       .from("patients")
       .select()
-      .eq("doctor_id", store.user.id);
+      .eq("doctor_email", store.user.email);
     if (error) toast.error(error);
     patients.value = data;
   }

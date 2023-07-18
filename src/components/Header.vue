@@ -30,7 +30,7 @@
 
         <v-list-item v-if="user?.role === 'Doctor'">
           <router-link :to="{ name: 'Patients' }">
-            <v-btn prepend-icon="mdi-pill-multiple" variant="text"
+            <v-btn prepend-icon="mdi-pill" variant="text"
               >Patients</v-btn
             >
           </router-link>

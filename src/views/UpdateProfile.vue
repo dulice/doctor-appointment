@@ -75,7 +75,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watchEffect } from "vue";
+import { onMounted, ref } from "vue";
 import { useToast } from "vue-toast-notification";
 import { supabase } from "../lib/supabaseClient";
 import addImg from "../assets/addImg.png";
@@ -87,7 +87,6 @@ import {
   VForm,
   VTextField,
   VBtn,
-  VTable,
   VExpandTransition,
 } from "vuetify/lib/components/index.mjs";
 import { useRouter } from "vue-router";

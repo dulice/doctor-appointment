@@ -51,16 +51,16 @@ export const useUserStore = defineStore("user", {
       if (error) throw error;
       this.user = null;
     },
-    async getDoctors() {
+    async getDoctors(count) {
       try {
         const { data } = await supabase
           .from("profiles")
           .select()
-          .eq("role", "Doctor");
+          .eq("role", "Doctor").limit(count);
 
         Promise.all(
           data.map(async (el) => {
-            if (el.avatar) {
+            if (el.avatar && !el.avatar.includes("https")) {
               const { data, error } = await supabase.storage
                 .from("avatars")
                 .download(el.avatar);
