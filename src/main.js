@@ -6,6 +6,7 @@ import { loadFonts } from "./plugins/webfontloader";
 import ToastPlugin from "vue-toast-notification";
 import "./assets/main.css";
 import pinia from "./store/store";
+import { MotionPlugin } from "@vueuse/motion";
 
 loadFonts();
 
@@ -14,4 +15,5 @@ createApp(App)
   .use(router)
   .use(vuetify)
   .use(ToastPlugin)
+  .use(MotionPlugin)
   .mount("#app");

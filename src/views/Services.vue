@@ -2,13 +2,35 @@
   <div class="my-16">
     <v-row>
       <v-col cols="12" sm="4">
-        <p class="big-head mb-3">Our Services</p>
-        <p class="subtitle-2 mb-3 text-gray">
+        <p
+          v-motion
+          :initial="{ opacity: 0 }"
+          :visible="{ opacity: 1, transition: { delay: 300 } }"
+          class="big-head mb-3"
+        >
+          Our Services
+        </p>
+        <p
+          v-motion
+          :initial="{ y: 100, opacity: 0 }"
+          :visible="{
+            y: 0,
+            opacity: 1,
+            transition: { delay: 400, type: 'spring', stiffness: 70 },
+          }"
+          class="subtitle-2 mb-3 text-gray"
+        >
           We offer a wealth of resources whether you're seeking information
           about a specific medical condition, looking for tips on healthy
           living, or exploring the latest advancements in healthcare.
         </p>
-        <v-btn color="primary">Our Service</v-btn>
+        <v-btn
+          v-motion
+          :initial="{ opacity: 0 }"
+          :visible="{ opacity: 1, transition: { delay: 500 } }"
+          color="primary"
+          >Our Service</v-btn
+        >
       </v-col>
       <v-col cols="12" sm="8">
         <v-row>
@@ -29,39 +51,57 @@
     </v-row>
 
     <div class="mt-10">
-      <p class="big-head">What Our Client Say</p>
+      <p
+        v-motion
+        :initial="{ opacity: 0 }"
+        :visible="{ opacity: 1, transition: { delay: 300 } }"
+        class="big-head"
+      >
+        What Our Client Say
+      </p>
       <v-row v-if="reviews">
-        <v-col cols="12" sm="4" v-for="review in reviews" :key="review.id">
-          <v-card class="h-100">
-            <v-card-text>
-              <div>
-                <v-icon
-                  icon="mdi-format-quote-open"
-                  size="50"
-                  color="primary"
-                ></v-icon>
-                <p class="comment">{{ review.comment }}</p>
-                <v-rating
-                  readonly
-                  density="compact"
-                  v-model="review.rating"
-                  color="warning"
-                  class="my-3"
-                ></v-rating>
+        <v-col
+          cols="12"
+          sm="4"
+          v-for="review in reviews"
+          :key="review.id"
+          v-motion
+          :initial="{ opacity: 0 }"
+          :visible="{ opacity: 1, transition: { delay: 300 } }"
+          class="big-head mb-4"
+        >
+          <v-hover v-slot="{isHovering, props}">
+            <v-card v-bind="props" :class="{'review-hover': isHovering}" class="review h-100">
+              <v-card-text>
                 <div>
-                  <v-avatar class="d-flex ma-auto">
-                    <v-img
-                      :src="review.patients.profiles.avatar ?? img"
-                      cover
-                    />
-                  </v-avatar>
-                  <p class="text-center text-gray my-3">
-                    {{ review.patients.profiles.username }}
-                  </p>
+                  <v-icon
+                    icon="mdi-format-quote-open"
+                    size="50"
+                    color="primary"
+                  ></v-icon>
+                  <p class="comment">{{ review.comment }}</p>
+                  <v-rating
+                    readonly
+                    density="compact"
+                    v-model="review.rating"
+                    color="warning"
+                    class="my-3"
+                  ></v-rating>
+                  <div>
+                    <v-avatar class="d-flex ma-auto">
+                      <v-img
+                        :src="review.patients.profiles.avatar ?? img"
+                        cover
+                      />
+                    </v-avatar>
+                    <p class="text-center text-gray my-3">
+                      {{ review.patients.profiles.username }}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </v-card-text>
-          </v-card>
+              </v-card-text>
+            </v-card>
+          </v-hover>
         </v-col>
       </v-row>
       <v-row v-else>
@@ -87,6 +127,7 @@ import {
   VCardItem,
   VRating,
   VIcon,
+  VHover
 } from "vuetify/lib/components/index.mjs";
 import { VSkeletonLoader } from "vuetify/labs/VSkeletonLoader";
 import { watchEffect, ref } from "vue";
@@ -134,5 +175,14 @@ const getAvatar = async (file) => {
   line-height: 1.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.review {
+  transition: all 1s ease ;
+}
+
+.review-hover {
+  transform: translateY(-10px);
+  box-shadow: -1px 1px 15px 2px gray;
 }
 </style>

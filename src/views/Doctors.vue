@@ -1,7 +1,14 @@
 <template>
   <div>
     <div class="d-flex justify-space-between">
-      <p class="text-h5 font-weight-bold">Our Specialist Doctor</p>
+      <p
+        v-motion
+        :initial="{ opacity: 0 }"
+        :visible="{ opacity: 1, transition: { delay: 300 } }"
+        class="text-h5 font-weight-bold"
+      >
+        Our Specialist Doctor
+      </p>
       <router-link v-if="route.path !== '/doctors'" :to="{ name: 'Doctors' }">
         <v-btn color="primary" variant="tonal" append-icon="mdi-arrow-right">
           More
@@ -23,7 +30,7 @@
     </v-row>
     <v-row v-else-if="doctors && route.path === '/'">
       <v-col
-        v-for="doctor in doctors.slice(0,4)"
+        v-for="doctor in doctors.slice(0, 4)"
         :key="doctor.id"
         cols="12"
         sm="6"
@@ -44,11 +51,7 @@
 </template>
 
 <script setup>
-import {
-  VRow,
-  VCol,
-  VBtn,
-} from "vuetify/lib/components/index.mjs";
+import { VRow, VCol, VBtn } from "vuetify/lib/components/index.mjs";
 import { ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { useUserStore } from "../store/users";
